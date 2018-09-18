@@ -8,6 +8,7 @@ import org.junit.Test;
 
 public class TestCity {
 
+	//tests getters and setters for the class
 	@Test
 	public void testGetName() {
 		City c1 = new City();

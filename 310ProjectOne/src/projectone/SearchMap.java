@@ -24,6 +24,7 @@ import projectone.CityComparator;
 
 
 public class SearchMap {
+	//allows for retrieval of key when value is known 
 	public static Object getKeyFromValue(Map hm, Object value) {
 	    for (Object o : hm.keySet()) 
 	    {
@@ -35,10 +36,11 @@ public class SearchMap {
 	    return null;
 	}
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-		  // The name of the file to open.
-        String fileName = "inputfile.txt";
+		
+        String fileName = args[0];
+        String outputName = args[1];
 
-        // This will reference one line at a time
+
         String line = null;
         String originCity;
         String cityOne;
@@ -48,10 +50,10 @@ public class SearchMap {
         Hashtable<String, Integer> costHash = new Hashtable<String, Integer>();
 
         try {
-            // FileReader reads text files in the default encoding.
+          
             FileReader fileReader = new FileReader(fileName);
 
-            // Always wrap FileReader in BufferedReader.
+     
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             originCity = bufferedReader.readLine();
             City newCity = new City();
@@ -99,7 +101,7 @@ public class SearchMap {
                 		cityList.add(cityTwoAddition);
                 }
             }   
-            // Always close files.
+        
             bufferedReader.close();  
         }
         catch(FileNotFoundException ex) {
@@ -111,8 +113,7 @@ public class SearchMap {
             System.out.println(
                 "Error reading file '" 
                 + fileName + "'");                  
-            // Or we could just do this: 
-            // ex.printStackTrace();
+        
         }
         
         int numberOfVertices = cityList.size();
@@ -120,14 +121,14 @@ public class SearchMap {
         FlightMap fm = new FlightMap(numberOfVertices);
         
         fm.setOriginCity(cityList.get(0));
-        //int [][]fmMap = fm.getGraphOfCities();
+   
         Hashtable <String, Integer> stringToInt = new Hashtable<String, Integer>();
         
         Vector<String> cityStringNames = new Vector<String>(cityList.size());
         
         for (int i = 0; i < cityList.size(); i++)
         {
-        		//System.out.println(cityList.get(i).getConnectedCities());
+        		
         		cityStringNames.add(cityList.get(i).getName());
         }
         
@@ -150,7 +151,7 @@ public class SearchMap {
         		{
         			int currentSource = stringToInt.get(sourceString);
         			int currentDestination = stringToInt.get(entry.getKey());
-        			//int currentCost = entry.getValue();
+        		
       
         			fm.addEdge(currentSource, currentDestination);
         		}
@@ -161,42 +162,13 @@ public class SearchMap {
         
         for (int i = 0; i < cityList.size(); i++)
         {
-        		//System.out.println(originInteger + "|" + i);
+       
         		fm.getPaths(originInteger, i);
         		
         }
         
         Vector<Integer> finalList = fm.finalCity;
-        
-      
-        
-        
-        /*
-        for (int i = 0; i < finalCostVector.size(); i++)
-        {
-        		System.out.println(finalCostVector.get(i));
-        }
-        */
-        
-        /*
-        for (int i = 0; i < finalList.size(); i++)
-        {
-        		if (finalList.get(i) == originInteger && finalList.get(i+1) == originInteger)
-        		{
-        			finalList.remove(i);
-        		}
-        }
-        */
-        
-        /*
-        
-        for (int i = 0; i < finalList.size(); i++)
-        {
-        		System.out.println(finalList.get(i));
-        }
-        
-        */
-        
+       
         Vector<Integer> finalCostVector = new Vector<Integer>();
         
         for (int i = 0; i < finalList.size(); i++)
@@ -238,65 +210,36 @@ public class SearchMap {
         		
         }
         
-        
-        System.out.println("final cost vector:");
-        
-        for (int i = 0; i < finalCostVector.size(); i++)
-        {
-        		System.out.println(finalCostVector.get(i));
-        }
-        
-        System.out.println("list of paths:");
-        
-        
-        /*
-        for (int x = 0; x < finalList.size(); x++)
-        {
-        		if (finalList.get(x) == originInteger && finalList.get(x+1) == originInteger)
-        		{
-        			finalList.remove(originInteger);
-        		}
-        		
-        }
-        */
-      
-        Vector<String> lastDestinations = new Vector<String>();
         Vector<String> finalListStrings = new Vector<String>();
         
         for (int i = 0; i < finalList.size(); i++)
         {
         	 	finalListStrings.add((String) (getKeyFromValue(stringToInt, finalList.get(i))));  
         }
+        
+        PrintWriter writer = new PrintWriter(outputName, "UTF-8");
+        writer.println("Path from Origin");
+        for (int j = 0; j < finalListStrings.size(); j++)
+        {
+        		if (finalListStrings.get(j).equals(fm.originCity.name))
+        		{
+        			writer.println();
+        			writer.print(fm.originCity.name + ",");
+        			
+        		}
+        		else
+        		{
+        			writer.print(finalListStrings.get(j) + ",");
+        		}
+        }
+        writer.println();
+        writer.println("Total Cost of Trip");
+        for (int i = 0; i < finalCostVector.size(); i++)
+        {
+        		writer.println(finalCostVector.get(i));
+        }
        
-        try {
-			PrintWriter out = new PrintWriter(new FileWriter("output.txt"));
-			out.print("Path from Origin");
-			out.print("                ");
-			out.print("Cost of Trip");
-			
-			 for (int j = 0; j < finalListStrings.size(); j++)
-		     {
-		        		if (finalListStrings.get(j).equals(fm.originCity.name))
-		        		{
-		        			out.println();
-		        			
-		        		}
-		        		else
-		        		{
-		        			out.print(finalListStrings.get(j) + ",");
-		        		}
-		        		
-		        		
-		        		out.print(finalCostVector.get(j));
-		      }
-			 out.print("                ");
-			 out.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}    	
-    }
-		// TODO Auto-generated method stub
+        writer.close();
+}
 }
 

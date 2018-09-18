@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestFlightMap" project="310ProjectOne" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="projectone.TestFlightMap" time="0.001">
+    <testcase name="testGetPaths" classname="projectone.TestFlightMap" time="0.0"/>
+    <testcase name="testAddEdge" classname="projectone.TestFlightMap" time="0.0"/>
+    <testcase name="testDFS" classname="projectone.TestFlightMap" time="0.001"/>
+    <testcase name="testGetOriginCity" classname="projectone.TestFlightMap" time="0.0"/>
+    <testcase name="testSetOriginCity" classname="projectone.TestFlightMap" time="0.0"/>
+    <testcase name="testDFSHelper" classname="projectone.TestFlightMap" time="0.0"/>
+    <testcase name="testGetNumCities" classname="projectone.TestFlightMap" time="0.0"/>
+  </testsuite>
+</testrun>

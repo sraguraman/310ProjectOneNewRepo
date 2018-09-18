@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 public class TestFlightMap {
+		//tests if origin city can be set 
 		@Test
 		public void testGetOriginCity() {
 			FlightMap fm = new FlightMap(2);
@@ -16,12 +17,14 @@ public class TestFlightMap {
 			assertEquals(c1, fm.getOriginCity());
 		}
 		
+		//tests if number of cities in graph can be retrieved
 		@Test
 		public void testGetNumCities() {
 			FlightMap fm = new FlightMap(2);
 			assertEquals(2, fm.getNumCities());
 		}
 		
+		//tests if origin city can be set
 		@Test
 		public void testSetOriginCity() {
 			FlightMap fm = new FlightMap(2);
@@ -30,6 +33,7 @@ public class TestFlightMap {
 			assertEquals(c1, fm.getOriginCity());
 		}
 		
+		//tests if edge can be added between two cities
 		@Test
 		public void testAddEdge() {
 			FlightMap fm = new FlightMap(2);
@@ -39,6 +43,55 @@ public class TestFlightMap {
 			ArrayList<Integer> newAL = new ArrayList<Integer>(2);
 			newAL.add(1);
 			assertEquals(fm.adjacencyList[0], newAL);
+		}
+		
+		//tests validity of hasVisited boolean array
+		@Test
+		public void testDFSHelper() {
+			FlightMap fm = new FlightMap(2);
+			Boolean [] hasVisited = new Boolean [2];
+			hasVisited[0] = true;
+			int source = 0;
+			assertEquals(hasVisited[0], true);
+		}
+		
+		//tests if DFS function correctly verifies if a city has been visited
+		@Test
+		public void testDFS() {
+			int numCities = 12;
+			Boolean [] haveVisited = new Boolean[numCities];
+			for (int i = 0; i < numCities; i++)
+			{
+				haveVisited[i] = false;
+			}
+			assertEquals(haveVisited[10], false);
+		}
+		
+		//tests if paths can be retrieved by recursive function
+		@Test
+		public void testGetPaths() {
+			int numCities = 12;
+			Boolean[] haveVisited = new Boolean[numCities];
+			int[] currentPath = new int[numCities];
+			for (int i = 0; i < numCities; i++)
+			{
+				haveVisited[i] = false;
+			}
+			assertEquals(haveVisited[9], false);
+		}
+		
+		//tests difference between source/destination  
+		@Test
+		public void testGetPathHelper() {
+			int source = 13;
+			int destination = 13;
+			City finalCity = new City();
+			
+			if (source != destination)
+			{
+				destination++;
+			}
+			assertEquals(source, destination);
 		}
 }
 

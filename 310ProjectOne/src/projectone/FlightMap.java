@@ -8,11 +8,12 @@ public class FlightMap {
 	City originCity;
 	int numCities;
 	
+	//adjacency list representation of the graph
 	ArrayList<Integer>[] adjacencyList;
 	
 	Vector<Integer> finalCity = new Vector<Integer>();
 	
-
+	//FlightMap Constructor
 	@SuppressWarnings("unchecked")
 	public FlightMap(int numCities) {
 		this.numCities = numCities;
@@ -24,11 +25,13 @@ public class FlightMap {
 		}
 	}
 	
+	//adds an edge between two cities
 	public void addEdge(int source, int destination)
 	{
 		adjacencyList[source].add(destination);
 	}
 	
+	//creates an array to track if cities have been visited
 	public void DFShelper(int source, Boolean[] haveVisited)
 	{
 		haveVisited[source] = true;
@@ -44,6 +47,7 @@ public class FlightMap {
 		}
 	}
 	
+	//DFS to find all possible paths from source to sink 
 	public void DFS(int source)
 	{
 		Boolean [] haveVisited = new Boolean[numCities];
@@ -55,6 +59,7 @@ public class FlightMap {
 		DFShelper(source, haveVisited);
 	}
 	
+	//gets all possible paths to the sink
 	public void getPaths(int source, int destination)
 	{
 		Boolean[] haveVisited = new Boolean[numCities];
@@ -69,6 +74,7 @@ public class FlightMap {
 		getPathHelper(source, destination, haveVisited, currentPath, index);
 	}
 	
+	//recursive function that creates individual paths from source to sink
 	public void getPathHelper(int source, int destination, Boolean[] haveVisited, int [] currentPath, int index)
 	{
 		haveVisited[source] = true;
@@ -101,7 +107,7 @@ public class FlightMap {
 		}
 	}
 	
-	
+	//getter and setter methods
 	public void setOriginCity(City c) {
 		originCity = c;
 	}
