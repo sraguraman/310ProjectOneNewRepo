@@ -1,4 +1,9 @@
 # 310ProjectOneNewRepo
+IMPORTANT NOTE:
+I changed repositories on the last day because of some package/build path issues. I have been committing to 
+that repository (https://github.com/sraguraman/310ProjectOne) for the vast majority of development. 
+Please grade THIS REPO instead of that one. 
+
 To Compile:
 1) Enter the bin file.
 2) Ensure the inputfile.txt exists in the bin file.
