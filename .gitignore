@@ -1,0 +1,5 @@
+*.class
+Project.iml
+*.ear
+.project
+.settings
