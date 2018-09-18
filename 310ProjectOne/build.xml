@@ -1,8 +1,8 @@
 <project name="Project1" default="compile" basedir=".">
 
-    <description>
-     Project 1 Build File
-    </description>
+<description>
+Project 1 Build File
+</description>
 
 <property name="source.dir" location="src"/>
 <property name="build.dir" location="bin"/>

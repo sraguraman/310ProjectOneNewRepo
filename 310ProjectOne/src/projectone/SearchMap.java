@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -17,6 +18,9 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Vector;
+import projectone.FlightMap;
+import projectone.City;
+import projectone.CityComparator;
 
 
 public class SearchMap {
@@ -263,86 +267,35 @@ public class SearchMap {
         {
         	 	finalListStrings.add((String) (getKeyFromValue(stringToInt, finalList.get(i))));  
         }
-        
-        
-        for (int j = 0; j < finalListStrings.size(); j++)
-        {
-        		if (finalListStrings.get(j).equals(fm.originCity.name))
-        		{
-        			System.out.println();
-        			
-        		}
-        		else
-        		{
-        			System.out.print(finalListStrings.get(j) + ",");
-        		}
-        }
-        
-        
-        /*
-        for (int i = 0; i < finalList.size(); i++)
-        {
-        		int finalCost = 0;
-        		while (finalList.get(i) != 9999)
-        		{
-        			int intToConvert = finalList.get(i);
-        			String trueCity = (String) getKeyFromValue(stringToInt, intToConvert);
-        			for (int x = 0; x < cityList.size(); x++)
-        			{
-        				if (cityList.get(x).name.equals(trueCity))
-        				{
-        					for (Map.Entry<String, Integer> entry : cityList.get(x).connectedCities.entrySet()) 
-        					{
-        						String connectedCity = (String) getKeyFromValue(stringToInt, finalList.get(i+1));
-        						if (connectedCity.equals(entry.getKey()))
-        						{
-        							finalCost += entry.getValue();
-        						}
-        					}
-        				}
-        			}
-        			System.out.println(finalCost);
-        		}
-        		i++;
-        		finalCost = 0;
-        }
-        */
-        
-        
        
-        
-       
-        
-        /*
-       // int [][]fmMap = fm.getGraphOfCities();
-        
-        for (int i = 0; i < fmMap.length; i++) {
-            for (int j = 0; j < fmMap[i].length; j++) {
-                System.out.print(fmMap[i][j] + " ");
-            }
-            System.out.println();
-        }
-        */
-        /*
-        int originInteger = stringToInt.get(fm.getOriginCity().getName());
-        BFS bfs = new BFS(fmMap, originInteger);
-        	Vector<Integer> cityOrder = bfs.realBFS(fmMap, originInteger);
-        	Vector<String> destinations = new Vector<String>();
-        	for (int x = 0; x < cityOrder.size(); x++)
-        	{
-        		destinations.add((String) getKeyFromValue(stringToInt, cityOrder.get(x)));
-        	}    
-        	
-        destinations.remove(fm.getOriginCity().getName());
-        	PathFinder pf = new PathFinder();
-        
-        for (int i = 0; i < destinations.size(); i++)
-        {
-         	pf.findPaths(fmMap, originInteger, stringToInt.get(destinations.get(i)));
-        }
-        */
-       
-        	
+        try {
+			PrintWriter out = new PrintWriter(new FileWriter("output.txt"));
+			out.print("Path from Origin");
+			out.print("                ");
+			out.print("Cost of Trip");
+			
+			 for (int j = 0; j < finalListStrings.size(); j++)
+		     {
+		        		if (finalListStrings.get(j).equals(fm.originCity.name))
+		        		{
+		        			out.println();
+		        			
+		        		}
+		        		else
+		        		{
+		        			out.print(finalListStrings.get(j) + ",");
+		        		}
+		        		
+		        		
+		        		out.print(finalCostVector.get(j));
+		      }
+			 out.print("                ");
+			 out.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    	
     }
 		// TODO Auto-generated method stub
 }
